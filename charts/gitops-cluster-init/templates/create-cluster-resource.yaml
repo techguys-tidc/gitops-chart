@@ -1,0 +1,29 @@
+kind: ApplicationSet
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: {{ .Values.name }}-cluster-resources
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+  -  git: 
+      repoURL: {{ .Values.sourceRepoURL}}
+      revision: {{ .Values.sourceRevision}}
+      directories:
+      - path: "clusters/*"                
+  template:
+    metadata:
+      name: {{ .Values.name}}-cr-{{ "{{path[1]}}" }}
+      namespace: {{ "'{{path[1]}}'" }}
+      labels:
+        level: cluster
+    spec:
+      source:
+        repoURL: {{ .Values.sourceRepoURL}}
+        targetRevision: {{ .Values.sourceRevision | default (printf "main" ) }}
+        path: "clusters/{{ "{{path[1]}}" }}"
+      destination:
+        name: {{ .Values.name}}
+        namespace: {{ "'{{path[1]}}'" }}
+      project: cluster-infra

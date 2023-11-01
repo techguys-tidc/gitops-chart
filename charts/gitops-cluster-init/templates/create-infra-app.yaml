@@ -1,0 +1,45 @@
+
+---
+kind: ApplicationSet
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: {{ .Values.name }}-infra-app
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+  -  git: 
+      repoURL: {{ .Values.sourceRepoURL}}
+      revision: {{ .Values.sourceRevision}}
+      directories:
+      - path: "namespaces/*"                
+  template:
+    metadata:
+      name: {{ .Values.name}}-app-{{ "{{path[1]}}" }}
+      namespace: {{ "'{{path[1]}}'" }}
+      labels:
+        level: namespace
+    spec:
+      source:
+        repoURL: {{.Values.sourceRepoURL}}
+        targetRevision: {{ .Values.sourceRevision | default (printf "main" ) }}
+        path: "charts/infra-application"
+        helm:     
+          # ignoreFailures: true
+          ignoreMissingValueFiles: true
+          parameters:
+            - name: namespace.metadata.name
+              value: {{ "'{{path[1]}}'" }}
+            - name: cluster
+              value: {{.Values.name}}
+            - name: clusterRepoURL
+              value: {{.Values.sourceRepoURL}}
+            - name: targetRevision
+              value: {{ .sourceRevision | default (printf "main" ) }}
+          valueFiles:
+          - '../../{{ "{{path}}"}}/namespace.yaml'
+      destination:
+        name: in-cluster
+        namespace: {{ "'{{path[1]}}'" }}
+      project: cluster-infra
