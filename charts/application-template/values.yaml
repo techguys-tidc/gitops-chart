@@ -1,0 +1,32 @@
+# namespace:
+#   name: sh
+  # labels:
+  #   a: b
+  # annotations:
+  #   a:b
+# apps:
+#   - name: manifest
+    # source_extra:
+    #   helm:
+    #     valueFiles:
+    #       - values.yaml    
+    # spec_extra: # addition spec
+    #   syncPolicy:
+    #     automated:
+    #       prune: true
+    #       selfHeal: true
+    #       allowEmpty: true
+    #       allowClusterAdmin: true
+    #       retry:
+    #         limit: 3
+    #         backoff:
+    #           duration: 5
+    #           factor: 2
+    #           maxDuration: 15
+    #   Info:
+    #     description: "This is a demo helm chart"
+    #     icon: "https://helm.sh/img/helm.svg"
+    #     keywords:
+    #       - "argo"
+    #       - "helm"
+    
