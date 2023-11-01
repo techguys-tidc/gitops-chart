@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  application-template:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-11-01T09:56:07.853697305Z"
+    description: A Helm chart for Kubernetes
+    digest: 3cfe7bb3bd9026ae1c435543ee32c32986c635a404d63ec9629d13db1c89f8b2
+    name: application-template
+    type: application
+    urls:
+    - https://github.com/techguys-tidc/gitops-chart/releases/download/application-template-0.1.1/application-template-0.1.1.tgz
+    version: 0.1.1
   gitops-cluster-init:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -11,4 +22,15 @@ entries:
     urls:
     - https://github.com/techguys-tidc/gitops-chart/releases/download/gitops-cluster-init-0.1.1/gitops-cluster-init-0.1.1.tgz
     version: 0.1.1
-generated: "2023-11-01T08:40:31.657906848Z"
+  namespace-template:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-11-01T09:56:08.085585689Z"
+    description: A Helm chart for Kubernetes
+    digest: ef5229f33aa5eca1230cb98a0d8451c737ba6b85dc638e6de9bdc051e007cbef
+    name: namespace-template
+    type: application
+    urls:
+    - https://github.com/techguys-tidc/gitops-chart/releases/download/namespace-template-0.1.1/namespace-template-0.1.1.tgz
+    version: 0.1.1
+generated: "2023-11-01T09:56:08.08559129Z"
